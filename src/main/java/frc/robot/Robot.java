@@ -7,6 +7,9 @@
 
 package frc.robot;
 
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMaxLowLevel;
+import com.revrobotics.SparkMax;
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -24,6 +27,10 @@ public class Robot extends TimedRobot {
   private static final String kCustomAuto = "My Auto";
   private String m_autoSelected;
   private final SendableChooser<String> m_chooser = new SendableChooser<>();
+  private CANSparkMax moter1;
+  private CANSparkMax moter2;
+  private CANSparkMax moter3;
+  private CANSparkMax moter4;
 
   /**
    * This function is run when the robot is first started up and should be
@@ -34,6 +41,16 @@ public class Robot extends TimedRobot {
     m_chooser.setDefaultOption("Default Auto", kDefaultAuto);
     m_chooser.addOption("My Auto", kCustomAuto);
     SmartDashboard.putData("Auto choices", m_chooser);
+
+    moter1 = new CANSparkMax(1, CANSparkMaxLowLevel.MotorType.kBrushless);
+    moter2 = new CANSparkMax(2, CANSparkMaxLowLevel.MotorType.kBrushless);
+    moter3 = new CANSparkMax(3, CANSparkMaxLowLevel.MotorType.kBrushless);
+    moter4 = new CANSparkMax(4, CANSparkMaxLowLevel.MotorType.kBrushless);
+
+    SmartDashboard.putNumber("moter1", 0);
+    SmartDashboard.putNumber("moter2", 0);
+    SmartDashboard.putNumber("moter3", 0);
+    SmartDashboard.putNumber("moter4", 0);
   }
 
   /**
@@ -94,6 +111,10 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void teleopPeriodic() {
+    moter1.set(SmartDashboard.getNumber("moter1",0));
+    moter2.set(SmartDashboard.getNumber("moter2",0));
+    moter3.set(SmartDashboard.getNumber("moter3",0));
+    moter4.set(SmartDashboard.getNumber("moter4",0));
   }
 
   /**
